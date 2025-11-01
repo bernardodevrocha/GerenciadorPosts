@@ -7,7 +7,7 @@ import { loadPosts } from '../../utils/load-posts';
 import { Button } from '../../components/Button';
 import { TextInput } from '../../components/TextInput';
 
-export const Home = () => {
+export default function Home() {
   const [posts, setPosts] = useState([]);
   const [allPosts, setAllPosts] = useState([]);
   const [page, setPage] = useState(0);
@@ -64,4 +64,4 @@ export const Home = () => {
       </div>
     </section>
   );
-};
+}
