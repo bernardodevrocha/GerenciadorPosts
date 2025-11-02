@@ -1,21 +1,36 @@
-import P from 'prop-types';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './styles.css';
 
-export const PostCard = ({ title, cover, body, id }) => (
-  <div className="post">
-    <img src={cover} alt={title} />
-    <div className="post-content">
-      <h2>
-        {title} {id}
-      </h2>
-      <p>{body}</p>
-    </div>
-  </div>
-);
+export const PostCard = ({ post }) => {
+  return (
+    <article className="post">
+      {post.cover && (
+        <Link to={`/posts/${post.id}`} aria-label={`Abrir ${post.title}`}>
+          <img src={post.cover} alt={post.title} />
+        </Link>
+      )}
+
+      <div className="post-content">
+        <h2>
+          <Link to={`/posts/${post.id}`}>{post.title}</Link>
+        </h2>
+        <p>{post.body?.slice(0, 120)}...</p>
+
+        {/* Botão Veja mais */}
+        <Link className="btn" to={`/posts/${post.id}`}>
+          Veja mais
+        </Link>
+      </div>
+    </article>
+  );
+};
 
 PostCard.propTypes = {
-  title: P.string.isRequired,
-  cover: P.string.isRequired,
-  body: P.string.isRequired,
-  id: P.number.isRequired,
+  post: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    body: PropTypes.string,
+    cover: PropTypes.string,
+  }),
 };

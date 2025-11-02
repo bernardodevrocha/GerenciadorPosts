@@ -1,28 +1,35 @@
-import P from 'prop-types';
-
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './styles.css';
 
-import { PostCard } from '../PostCard';
+// antes: Posts.defaultProps = { posts: [] }
+export const Posts = ({ posts = [] }) => {
+  if (!Array.isArray(posts)) return null;
 
-export const Posts = ({ posts = [] }) => (
-  <div className="posts">
-    {posts.map((post) => (
-      <PostCard key={post.id} title={post.title} body={post.body} id={post.id} cover={post.cover} />
-    ))}
-  </div>
-);
-
-Posts.defaultProps = {
-  posts: [],
+  return (
+    <div className="posts">
+      {posts.map((post) => (
+        <article key={post.id} className="post">
+          {post.cover && (
+            <Link to={`/posts/${post.id}`} aria-label={`Abrir ${post.title}`}>
+              <img src={post.cover} alt={post.title} />
+            </Link>
+          )}
+          <div className="post-content">
+            <h2>
+              <Link to={`/posts/${post.id}`}>{post.title}</Link>
+            </h2>
+            <p>{post.body?.slice(0, 120)}...</p>
+            <Link className="btn" to={`/posts/${post.id}`}>
+              Veja mais
+            </Link>
+          </div>
+        </article>
+      ))}
+    </div>
+  );
 };
 
 Posts.propTypes = {
-  posts: P.arrayOf(
-    P.shape({
-      title: P.string.isRequired,
-      cover: P.string.isRequired,
-      body: P.string.isRequired,
-      id: P.number.isRequired,
-    }),
-  ),
+  posts: PropTypes.array,
 };
