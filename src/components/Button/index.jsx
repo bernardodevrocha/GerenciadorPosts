@@ -1,8 +1,9 @@
 import P from 'prop-types';
 import './styles.css';
 
-export const Button = ({ text, onClick, disabled = false }) => (
-  <button className="button" onClick={onClick} disabled={disabled}>
+// eslint-disable-next-line react/prop-types
+export const Button = ({ text, onClick, disabled = false, className = '' }) => (
+  <button className={`btn ${className}`} onClick={onClick} disabled={disabled}>
     {text}
   </button>
 );

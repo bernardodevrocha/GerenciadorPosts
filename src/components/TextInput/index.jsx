@@ -1,10 +1,11 @@
 import P from 'prop-types';
 import './styles.css';
 
-export const TextInput = ({ searchValue, handleChange }) => {
+// eslint-disable-next-line react/prop-types
+export const TextInput = ({ searchValue, handleChange, className = '' }) => {
   return (
     <input
-      className="text-input"
+      className={`input ${className}`}
       onChange={handleChange}
       value={searchValue}
       type="search"

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './styles.css';
 
-export const PostCard = ({ post }) => {
+export const PostCard = ({ post, showActions = false, onEdit = () => {}, onDelete = () => {} }) => {
   return (
     <article className="post">
       {post.cover && (
@@ -17,9 +17,21 @@ export const PostCard = ({ post }) => {
         </h2>
         <p>{post.body?.slice(0, 120)}...</p>
 
-        <Link className="btn" to={`/posts/${post.id}`}>
-          Veja mais
-        </Link>
+        <div className="post-actions">
+          {showActions && (
+            <>
+              <button type="button" onClick={() => onEdit(post.id)}>
+                Editar
+              </button>
+              <button type="button" onClick={() => onDelete(post.id)}>
+                Excluir
+              </button>
+            </>
+          )}
+          <Link className="btn" to={`/posts/${post.id}`}>
+            Veja mais
+          </Link>
+        </div>
       </div>
     </article>
   );
@@ -32,4 +44,7 @@ PostCard.propTypes = {
     body: PropTypes.string,
     cover: PropTypes.string,
   }),
+  showActions: PropTypes.bool,
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
 };

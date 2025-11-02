@@ -1,5 +1,5 @@
 .posts {
-  --card-min: 280px; /* ajuste o mínimo do card */
+  --card-min: 280px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--card-min), 1fr));
   gap: 24px;
@@ -11,7 +11,7 @@
   flex-direction: column;
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,.08);
   overflow: hidden;
 }
 
@@ -30,6 +30,13 @@
   flex: 1;
 }
 
+.post-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+}
+
 .btn {
   display: inline-block;
   padding: 8px 12px;
@@ -38,12 +45,9 @@
   color: #fff;
   text-decoration: none;
   font-weight: 600;
-  transition:
-    transform 0.05s ease-in,
-    box-shadow 0.2s ease;
-  align-self: flex-start;
+  transition: transform .05s ease-in, box-shadow .2s ease;
 }
 .btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);
 }

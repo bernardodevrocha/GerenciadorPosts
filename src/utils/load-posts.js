@@ -1,30 +1,24 @@
+import { API_BASE } from './api';
+
 export const loadPosts = async () => {
-  const [postsRes, photosRes] = await Promise.all([
-    fetch('http://localhost:4000/api/posts'),
-    fetch('http://localhost:4000/api/photos'),
-  ]);
+  try {
+    const [postsRes, photosRes] = await Promise.all([fetch(`${API_BASE}/api/posts`), fetch(`${API_BASE}/api/photos`)]);
 
-  const [postsJson, photosJson] = await Promise.all([postsRes.json(), photosRes.json()]);
+    if (!postsRes.ok) throw new Error(`GET /api/posts ${postsRes.status}`);
+    if (!photosRes.ok) throw new Error(`GET /api/photos ${photosRes.status}`);
 
-  if (!postsRes.ok) {
-    throw new Error(`GET /api/posts falhou: ${postsJson?.error ?? postsRes.status}`);
+    const [posts, photos] = await Promise.all([postsRes.json(), photosRes.json()]);
+
+    if (!Array.isArray(posts) || !Array.isArray(photos)) {
+      throw new Error('API não retornou arrays');
+    }
+
+    return posts.map((post, i) => ({
+      ...post,
+      cover: photos[i]?.url ?? null,
+    }));
+  } catch (err) {
+    console.error('[loadPosts] Failed:', err);
+    throw err; // deixa o erro subir para o seu useEffect (para você ver no console)
   }
-  if (!photosRes.ok) {
-    throw new Error(`GET /api/photos falhou: ${photosJson?.error ?? photosRes.status}`);
-  }
-
-  const postsArr = Array.isArray(postsJson) ? postsJson : [];
-  const photosArr = Array.isArray(photosJson) ? photosJson : [];
-
-  if (!Array.isArray(postsArr)) {
-    throw new Error('API /api/posts não retornou um array.');
-  }
-  if (!Array.isArray(photosArr)) {
-    throw new Error('API /api/photos não retornou um array.');
-  }
-
-  return postsArr.map((post, i) => ({
-    ...post,
-    cover: photosArr[i]?.url ?? null,
-  }));
 };

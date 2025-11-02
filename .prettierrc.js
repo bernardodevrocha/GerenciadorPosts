@@ -1,7 +1,4 @@
 module.exports = {
-  rules: {
-    'prettier/prettier': ['error', { endOfLine: 'auto' }]
-  },
   semi: true,
   trailingComma: 'all',
   singleQuote: true,
