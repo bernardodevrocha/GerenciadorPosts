@@ -17,7 +17,6 @@ export const PostCard = ({ post }) => {
         </h2>
         <p>{post.body?.slice(0, 120)}...</p>
 
-        {/* Botão Veja mais */}
         <Link className="btn" to={`/posts/${post.id}`}>
           Veja mais
         </Link>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { loadPostsById } from '../utils/load-post-by-id';
 
-export default function PostDetail(){
+export default function PostDetail() {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [status, setStatus] = useState('loading');

@@ -1,4 +1,4 @@
-.container{
+.container {
   max-width: 1200px;
   margin: 0 auto;
   min-height: 100vh;
@@ -6,16 +6,16 @@
   padding: 30px;
 }
 
-.button-caontainer{
+.button-caontainer {
   height: 60px;
   display: flex;
   align-items: flex-end;
 }
 
-.search-container{
+.search-container {
   margin-bottom: 30px;
 }
 
-.search-container h1{
+.search-container h1 {
   margin-bottom: 30px;
 }
